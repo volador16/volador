@@ -1,0 +1,52 @@
+{
+"quick-game":{
+    "title":"快速牌局",
+    "location":[60,140,52,560],
+    "imgfile":"/home/admin/volador/pic-templates/yuanshuaideipad/quick-game.png",
+    "features":[
+        [515,680,150,460]
+    ],
+    "operates":[
+       {"type":"button","name":"我要组局","location":[310,600]},
+       {"type":"number_text","name":"输入验证码","location":[300,240]},
+       {"type":"button","name":"确定入局","location":[300,340]}
+    ]
+},
+"make-game":{
+    "title":"取消 建立牌局",
+    "location":[60,140,52,560],
+    "imgfile":"/home/admin/volador/pic-templates/yuanshuaideipad/careate-game.png",
+    "operates":[
+       {"type":"button","name":"普通牌局","location":[175,210]},
+       {"type":"button","name":"SNG牌局","location":[410,210]},
+       {"type":"str_text","name":"牌局名称","location":[135,340]},
+       {"type":"button","name":"6人局","location":[450,340]},
+       {"type":"button","name":"9人局","location":[500,340]},
+       {"type":"slider","setp_cnt":7,"name":"盲注调整","location":[110,540]},
+       {"type":"slider-button","setp_cnt":2,"name":"控制带入","location":[500,615],"out-screen":true},
+       {"type":"slider-button","setp_cnt":7,"name":"牌局时长","location":[100,605]},"out-screen":true},
+       {"type":"button","name":"现在开局","location":[305,730],"out-screen":true}
+    ]
+},
+"start-quick-cash":{
+    "title":"快速普通局 解散",
+    "location":[60,140,220,560],
+    "hasPopWindow":{"title":"温馨提示","location":[165,415,160,440],"operates":[{"type":"button","name":"确定","location":[410,470]}]},
+    "imgfile":"/home/admin/volador/pic-templates/yuanshuaideipad/start-quick-cash-game.png",
+    "operates":[
+       {"type":"button","name":"开始","location":[435,275]},
+       {"type":"ocr-rectangle","name":"牌局id","location":[150,170,180,255]}
+    ]
+},
+"nine-cash-game"{
+    "title":"",
+    "hasPopMenu":{"title":"同意","location":[135,160,490,561]},
+    "features":[
+        [600,670,270,345]
+    ],
+    "imgfile":"/home/admin/volador/pic-templates/yuanshuaideipad/nine-cash-game.png",
+    "operates":[
+       {"type":"button","name":"开始","location":[305,405]},
+    ]
+}
+}
