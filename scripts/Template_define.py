@@ -21,7 +21,7 @@ class Location:
     def __str__(self):
        return "left_x=%d, left_y=%d, right_x=%d, right_y=%d" %(self.left_x,self.left_y,self.right_x,self.right_y)
 
-class Operate:
+class OperatePosition:
     opt_type=""
     name=""
     location=None

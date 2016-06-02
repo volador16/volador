@@ -2,6 +2,7 @@
 #这个脚本在人工指定窗口后，间隔1s自动捕获一次窗口，并发送通知消息
 
 out_path="/home/admin/volador/screens/"
+scripts_ptah="/home/admin/volador/scripts/"
 
 #使用xwininfo 获取ubuntu窗口id
 info_str=`xwininfo | grep "Window id" | awk -F ' ' '{print $4 $5}' | sed -s "s/\"/ /g"`
@@ -17,7 +18,7 @@ msg="{\"type\":\"tm-reg\",\"role\":\"table-mstr\",\"time\":\"$time\",\"content\"
 #echo $msg
 #exit 0
 
-sh kafka-producer.sh "event" "$msg"
+echo "$msg" | sh ${scripts_ptah}kafka-producer.sh event
 
 #loop capture window
 while true
@@ -28,11 +29,11 @@ do
     convert $full_path"/"$filename".xwd" $full_path"/"$filename".png"
     rm $full_path"/"$filename".xwd"
     #send kafka msg
-    msg="{\"window_id\":\"windowid\",\"file_name\":\"${full_path}/${filename}.png\"}"
-    sh kafka-producer.sh "screen $msg"
+    msg="{\"window_id\":\"${windowid}\",\"file_name\":\"${full_path}/${filename}.png\"}"
+    echo "$msg" | sh ${scripts_ptah}kafka-producer.sh screen
     sleep 0.8
     #按一下键盘捕获当前界面
-    #read TEMP
+    read TEMP
 done
 
 exit 0
