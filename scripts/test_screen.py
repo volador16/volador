@@ -1,27 +1,29 @@
-# -*- coding: utf-8 -*
-
-from Screen import Screen
-from Template_define import ScreenTemplates
+# -*- coding: utf-8 -*-
+"""
+这个脚本用于测试屏幕图片识别是否正确
+@author: volader
+"""
 from Tesseract import Tesseract
+from Configures import UIDefinition
+from Screen import ScreenMatcher
+import sys
 import os
 
-conf = ScreenTemplates('/home/admin/volador/conf/feature_define.json')
+#全局单键实例
 tesseract = Tesseract()
-templates = {}
+#load 配置文件
+UIDef = UIDefinition('/home/admin/volador/conf')
 
-#load templates
-for k,v in conf.templates.iteritems():
-    scrn = Screen(v.imgfile)
-    for i in xrange(len(v.features)):
-        scrn.loadFeature(v.features[i])
-    templates[k] = scrn
+def match_screen(imgfile):
+    matcher = ScreenMatcher(imgfile)
+    ret = matcher.match(UIDef,tesseract,'ipad_mini_retina')
+    print "[%s] == <%s>" %(imgfile,ret)
 
-#load screen pic 进行对比
-test_path='/home/admin/volador/scripts/test_screen_pic/'
-
-for f in os.listdir(test_path):
-    tmp = os.path.join(test_path,f)
-    if os.path.isfile(tmp):
-        scr = Screen(tmp)
-        ret = scr.matchTemplate(conf,templates,tesseract)
-        print ret
+#is sing file
+if os.path.isfile(sys.argv[1]):
+    match_screen(sys.argv[1])
+else:
+    for f in os.listdir(sys.argv[1]):
+        tmp = os.path.join(sys.argv[1],f)
+        if os.path.isfile(tmp):
+            match_screen(tmp)

@@ -3,9 +3,6 @@
 from Tesseract import Tesseract
 import cv2
 import os
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 template_path='./test_ocr_pic/'
 

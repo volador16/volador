@@ -9,12 +9,12 @@ import os
 import json
 from kafka import KafkaConsumer
 from Tesseract import Tesseract
-from Template_define import ScreenTemplates
+from Configures import UIDefinition
 
 #全局单键实例
 tesseract = Tesseract()
 #load 配置文件
-configures = ScreenTemplates('/home/admin/volador/conf/feature_define.json')
+UIDef = UIDefinition('/home/admin/volador/conf')
 
 #@brief 这个对象封装了一个界面的原始图片，轮廓图片，以及主要轮廓的数据结构，以及主要轮廓的极值点
 class Screen:

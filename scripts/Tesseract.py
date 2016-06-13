@@ -1,4 +1,28 @@
 # -*- coding: utf-8 -*-
+import os
+import cv2
+
+class Tesseract:
+    __pid=""
+    __path=""
+
+    def __init__(self):
+        self.__pid = os.getpid()
+        self.__path = os.path.expanduser('~')+'/volador/TesseractTemp/'
+        os.system('mkdir -p '+self.__path)
+
+    #识别文本, psm 是指图片的文字的排版格式，默认为单行文本
+    def image2String(self,img,psm = '7', lang='chi_sim+eng'):
+        imgfile=self.__path+str(self.__pid)+'.png'
+        retfile=self.__path+str(self.__pid)
+        cv2.imwrite(imgfile,img)
+        os.popen('tesseract '+imgfile+' '+retfile+' -l '+lang+' -psm '+psm+' >/dev/null 2>&1')
+        txt=file(retfile+'.txt').read().strip()
+        os.remove(imgfile)
+        return txt.decode('utf-8')
+
+"""
+#下面这个版本有待深入研究，为赶进度换成上面的版本
 import cv2
 import numpy as np
 from PIL import Image
@@ -29,3 +53,4 @@ class Tesseract:
         pil_img = Image.fromarray(opencvImg)
         txt = self.tool.image_to_string( pil_img, lang=self.lang, builder=pyocr.builders.TextBuilder() )
         return txt
+"""

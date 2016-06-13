@@ -6,6 +6,7 @@
 import Template_define
 import cv2
 import numpy as np
+from ScreenOperator import ScreenOperator
 
 class QuickGame(ScreenBase):
     __title_loc=None
