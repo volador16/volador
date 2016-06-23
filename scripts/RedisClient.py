@@ -29,7 +29,7 @@ class RedisClient:
     def get_dev_status(self,winid):
         sjn = self.__redis.hgetall(winid)
         obj = json.loads(sjn)
-        if obj.has_key('cur-app') and obj.has_key('cur-state'):
-            return obj['cur-app'], obj['cur-state']
+        if obj.has_key('cur-app') and obj.has_key('cur-state') and obj.has_key('dev-name'):
+            return obj['dev-name'], obj['cur-app'], obj['cur-state']
         print "Can't find window status! id=%s" %winid
-        return "", ""
+        return ()
