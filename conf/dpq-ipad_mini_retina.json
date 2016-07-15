@@ -1,5 +1,5 @@
 {
-    "login":{
+    "登录":{
         //将黑粗体德扑圈识别成“僵孙固”,我也是醉了😂
         "title":"僵 孙 固",
         "title_area":[200,260,230,375],
@@ -12,7 +12,7 @@
             "注册":{"type":"button","location":[300,575]}
         }
     },
-    "register":{
+    "注册":{
         "title":"取消 新用户注册",
         "title_area":[60,120,52,400],
         "recognition_method":"ocr-title",
@@ -66,7 +66,7 @@
             "设置":{"type":"button","location":[220,565]}
          }
     },
-    "我.设置":{
+    "设置":{
         "title":"〈 我 设置",
         "title_area":[60,120,52,400],
         "recognition_method":"ocr-title",
@@ -76,7 +76,16 @@
             "我":{"type":"button","location":[80,95]}
         },
         "children":{
-            //"退出登录":{"type":"PopMenu","title":"退出登录","title_area":[638,690,225,395],"recognition_method":"ocr-title","operates":{"退出登录":{"type":"button","location":[305,665]}}}
+            "pop-window":{
+                "type":"PopWindow",
+                "title":"退出登录",
+                "title_area":[638,690,225,395],
+                "recognition_method":"ocr-title",
+                "operates":{
+                    "退出登录":{"type":"button","location":[305,665]},
+                    "取消":{"type":"button","location":[305,745]}
+                }
+            }
         }
     },
     //这个level的每一个对象表示一个德扑圈的界面
@@ -98,17 +107,21 @@
         "recognition_method":"ocr-title",
         "title_match":"complete_match",
         "operates":{
-           "普通牌局":{"type":"button","name":"普通牌局","location":[175,210]},
-           "SNG牌局":{"type":"button","name":"SNG牌局","location":[410,210]},
-           "牌局名称":{"type":"str_text","name":"牌局名称","location":[135,340]},
-           "6人局":{"type":"button","name":"6人局","location":[450,340]},
-           "9人局":{"type":"button","name":"9人局","location":[500,340]},
-           "盲注设置":{"type":"slider","setp_cnt":7,"name":"盲注调整","location":[110,540]},
-           //here 是一个向上翻屏的操作,在workflow中要体现出来
+            //here is cash game setup
+           "普通牌局":{"type":"button","location":[175,210]},
+           "牌局名称":{"type":"str_text","location":[135,340]},
+           "player-num":{"type":"slider-button","setp_cnt":2,"distance":20,"location":[450,340]},
+           "盲注设置":{"type":"slider","setp_cnt":7,"distance":80,"location":[110,540]},
+           "控制带入":{"type":"slider-button","setp_cnt":2,"distance":80,"location":[500,615]},
            "drag-up":{"type":"drag","location":[300,450,300,150]},
-           "控制带入":{"type":"slider-button","setp_cnt":2,"name":"控制带入","location":[500,615],"out-screen":true},
-           "牌局时长":{"type":"slider-button","setp_cnt":7,"name":"牌局时长","location":[100,605],"out-screen":true},
-           "现在开局":{"type":"button","name":"现在开局","location":[305,730],"out-screen":true}
+           "牌局时长":{"type":"slider-button","setp_cnt":7,"distance":80,"location":[100,605],"out-screen":"drag-up"},
+           "现在开局":{"type":"button","location":[305,730],"out-screen":"drag-up"},
+           //here is sng game setup
+           "SNG牌局":{"type":"button","location":[410,210]},
+           "SNG-player-num":{"type":"slider-button","setp_cnt":3,"distance":20,"location":[450,340]},
+           "SNG-type":{"type":"slider-button","setp_cnt":4,"distance":80,"location":[0,0]},
+           "SNG-控制报名":{"type":"slider-button","setp_cnt":2,"distance":80,"location":[500,615],"out-screen":"drag-up"},
+           "SNG-现在开局":{"type":"button","location":[305,730],"out-screen":"drag-up"}
         }
     },
     "快速普通局":{
@@ -124,7 +137,11 @@
         },
         //定义子窗口或PopMenu
         "children":{
-            "温馨提示":{"type":"PopWindow","title":"温馨提示","title_area":[165,415,160,440],"recognition_method":"ocr-title","operates":{"确定":{"type":"button","location":[410,470]}}}
+            "pop-window":{
+                "type":"PopWindow","title":"温馨提示","title_area":[165,415,160,440],
+                "recognition_method":"ocr-title",
+                "operates":{"确定":{"type":"button","location":[410,470]}}
+            }
         }
     },
     //这个界面没有title,用features_area来识别; 可能是
@@ -144,7 +161,7 @@
             "left-top-menu":{
                 "type":"PopMenu",
                 "recognition_method":"ocr-menu",
-                "items":{}
+                "operates":{}
             }
         },
         "monitors":{

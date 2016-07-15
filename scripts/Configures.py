@@ -14,7 +14,7 @@ def delete_file(f):
 
 #@brief config parse base
 class ConfigParser:
-    __conf={}
+    conf={}
 
     def __init__(self,path,key):
         for f in os.listdir(path):
@@ -24,12 +24,14 @@ class ConfigParser:
             if os.path.isfile(tmp):
                 #print "find file [%s]" %tmp
                 lst = f.split('-')
-                if len(lst) < 2:
+                if len(lst) < 2 and key != "MP":
                     continue
                 if key == 'UI':
                     if lst[1] == 'work_flow.json': continue
                 elif key == 'WF':
                     if lst[1] != 'work_flow.json': continue
+                elif key == 'MP':
+                    if f != 'app_screen_path.json': continue
                 else:
                     print "unknowed parse key %s" %key
                     continue
@@ -37,18 +39,23 @@ class ConfigParser:
                 delete_comment(tmp,jtmp)
                 fl = file(jtmp)
                 jsonobj = json.load(fl)
-                self.__definition[lst[0]]={}
-                self.__definition[lst[0]][lst[1][0:-5]] = jsonobj
+                if key == 'MP':
+                    self.conf = jsonobj
+                elif key=='WF':
+                    self.conf[lst[0]] = jsonobj
+                else:
+                    self.conf[lst[0]]={}
+                    self.conf[lst[0]][lst[1][0:-5]] = jsonobj
                 print "load configure json file [%s]" % tmp
 
 #用户界面定义配置
-class UIDefinitioni(ConfigParser):
+class UIDefinition(ConfigParser):
     def __init__(self,path):
         ConfigParser.__init__(self,path,'UI')
 
     #取得指定app指定设备的配置
     def get_definition(self,app,dev):
-        return self.__conf[app][dev]
+        return self.conf[app][dev]
 
 #任务定义配置
 class TaskDefinition(ConfigParser):
@@ -56,4 +63,12 @@ class TaskDefinition(ConfigParser):
         ConfigParser.__init__(self,path,'WF')
 
     def get_flow_map(self,app):
-        return self.__conf[app]
+        return self.conf[app]
+
+#界面跳转路径map
+class ScreenPath(ConfigParser):
+    def __init__(self, path):
+        ConfigParser.__init__(self, path, 'MP')
+
+    def get_map(self,app):
+        return self.conf[app]
